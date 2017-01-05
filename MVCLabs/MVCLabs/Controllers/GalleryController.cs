@@ -3,87 +3,95 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVCLabs.Models;
+using System.IO;
 
 namespace MVCLabs.Controllers
 {
     public class GalleryController : Controller
     {
+        public static List<Photo> photos = new List<Photo>();
+
         // GET: Gallery
-        public ActionResult Index()
+        public GalleryController()
+        {
+            if (!photos.Any())
+            {
+
+                photos.Add(new Photo { PhotoID = Guid.NewGuid(), PhotoName = "ost1.PNG", PhotoComment = new List<Comments> { new Comments { CommentOnPicture = "So cheesy" } } });
+                photos.Add(new Photo { PhotoID = Guid.NewGuid(), PhotoName = "ost2.PNG", PhotoComment = new List<Comments> { new Comments { CommentOnPicture = "Sweet chessus" } } });
+                photos.Add(new Photo { PhotoID = Guid.NewGuid(), PhotoName = "superost.PNG", PhotoComment = new List<Comments> { new Comments { CommentOnPicture = "Thats cheesed up man" } } });
+               
+            }
+        }
+        public ActionResult Gallery()
+        {
+            return View(photos);
+        }
+
+        public ActionResult ShowImage(Guid id)
+        {
+            var showphoto = photos.FirstOrDefault(x => x.PhotoID == id);
+            return View(showphoto);
+        }
+        public ActionResult UploadPicture()
         {
             return View();
         }
-
-        // GET: Gallery/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Gallery/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Gallery/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult UploadPicture(string comment, HttpPostedFileBase[] files, Photo photo)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return View(photo);
             }
-            catch
+            if (files == null)
             {
-                return View();
+                ModelState.AddModelError("error", "No picture!");
+                return View(photo);
             }
-        }
+            foreach (var file in files)
+            {
+                file.SaveAs(
+                Path.Combine(Server.MapPath("~/Image"), file.FileName));
+                photos.Add(new Photo { PhotoID = Guid.NewGuid(), PhotoName = file.FileName, PhotoComment = new List<Comments> { new Comments { CommentOnPicture = comment } } });
+            }
 
-        // GET: Gallery/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
         }
-
-        // POST: Gallery/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult DeletePicture(Guid id)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var photo = photos.FirstOrDefault(x => x.PhotoID == id);
+            return View(photo);
+        }
+        [HttpPost]
+        public ActionResult DeletePicture(Guid id, Photo photo)
+        {
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var p = photos.FirstOrDefault(x => x.PhotoID == id);
+            string fullPath = Request.MapPath("~/Image/" + p.PhotoName);
+
+            if (System.IO.File.Exists(fullPath))
             {
-                return View();
+                System.IO.File.Delete(fullPath);
+                //Session["DeleteSuccess"] = "Yes";
+                photos.Remove(p);
             }
+            return RedirectToAction("Gallery");
+        }
+        public ActionResult AddComment(Guid id)
+        {
+            var p = photos.FirstOrDefault(x => x.PhotoID == id);
+            return View(p);
         }
 
-        // GET: Gallery/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Gallery/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult AddComment(Guid id, string photoComment)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var p = photos.FirstOrDefault(x => x.PhotoID == id);
+            p.PhotoComment.Add(new Comments { CommentOnPicture = photoComment });
+            return View(p);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

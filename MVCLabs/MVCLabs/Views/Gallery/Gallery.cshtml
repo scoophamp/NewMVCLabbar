@@ -1,0 +1,51 @@
+﻿@using MVCLabs.Models
+@model List<MVCLabs.Models.Photo>
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Gallery</h2>
+<p>Here are some photos</p>
+<div class="row">
+    @foreach (var photo in Model)
+    {
+        <div class="col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="/Image/@photo.PhotoName" />
+                <div class="caption">
+                    <p>PhotoID: @photo.PhotoID</p>
+                    <h4>PhotoName: @photo.PhotoName</h4>
+                    Comments:
+                    <div id="comments">
+                        @foreach (var item in photo.PhotoComment)
+                        {
+                            <p>@item.CommentOnPicture</p>
+                        }
+                    </div>
+
+                    @Html.ActionLink("Show Picture", "ShowImage", "Gallery", new { id = photo.PhotoID }, null)
+                    @Html.ActionLink("Delete Picture", "DeletePicture", "Gallery", new { id = photo.PhotoID }, null)
+                    @Html.ActionLink("Add Comment", "AddComment", "Gallery", new { id = photo.PhotoID }, null)
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<img src="/Image/@photo.PhotoName"/>*@
+        <div>
+            @*@Html.ActionLink("Show Picture", "ShowImage","Gallery",new { id=photo.PhotoID},null)*@
+        </div>
+    }
+</div>
+@section latest{
+    <h3>Latest uploaded Picture</h3>
+    @foreach (Photo result in Model)
+    {
+        if (Model.IndexOf(result) == Model.Count - 1)
+        {
+            // this is the last item
+            <img src="/Image/@result.PhotoName" />
+        }
+    }
+}

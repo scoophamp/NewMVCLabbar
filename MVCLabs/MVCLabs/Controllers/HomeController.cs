@@ -15,7 +15,7 @@ namespace MVCLabs.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "My cheesy application.";
 
             return View();
         }

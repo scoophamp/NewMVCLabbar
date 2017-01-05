@@ -1,0 +1,15 @@
+﻿@model MVCLabs.Models.Photo
+@{
+    ViewBag.Title = "AddComment";
+}
+<h2>AddComment</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <img src="/Image/@Model.PhotoName" />
+    <div class="form-actions no-color">
+        <input type="text" name="photoComment" id="photoComment" />
+        <input type="submit" value="Add" class="btn btn-default" /> |
+        @Html.ActionLink("Back to Gallery", "Gallery")
+    </div>
+}

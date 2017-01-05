@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "UploadPicture";
+}
+<h2>UploadPicture</h2>
+<div id="imgSpinner1" style="display:none">
+    <img src="~/Image/SpinnerImage/ajax-loader.gif" />
+</div>
+@using (Html.BeginForm("UploadPicture",
+                                                "Gallery",
+                                                FormMethod.Post,
+                                                new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Photo">
+            Photo
+        </label>
+        <div class="col-md-10">
+            <input type="file" name="files" id="file" multiple="multiple" />
+            @Html.ValidationMessage("error")
+            <input type="text" name="comment" id="comment" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" id="btnAddPhoto" class="btn btn-default" />
+        </div>
+    </div>
+}
+@section script{
+
+    <script src="~/Scripts/MyJavaScriptFile.js"></script>
+}

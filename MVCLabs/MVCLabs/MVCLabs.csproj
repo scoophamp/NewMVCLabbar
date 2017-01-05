@@ -195,8 +195,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -220,11 +223,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\ost1.PNG" />
+    <Content Include="Image\ost2.PNG" />
+    <Content Include="Image\superost.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Administration\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -234,6 +241,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyJavaScriptFile.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -276,11 +284,18 @@
     <Content Include="Views\Album\Details.cshtml" />
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Album\Index.cshtml" />
+    <Content Include="Views\Gallery\AddComment.cshtml" />
+    <Content Include="Views\Gallery\DeletePicture.cshtml" />
+    <Content Include="Views\Gallery\Gallery.cshtml" />
+    <Content Include="Views\Gallery\UploadPicture.cshtml" />
+    <Content Include="Views\Gallery\ShowPicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Image\" />
-    <Folder Include="Views\Gallery\" />
+    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\Admin\" />
+    <Folder Include="Areas\Administration\Views\Shared\" />
+    <Folder Include="Views\ErrorPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
