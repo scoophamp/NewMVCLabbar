@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MVCLabs.Models.Album>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "CreateAlbum")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AlbumName)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var album in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => album.AlbumName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = album.AlbumID }) |
+                @Html.ActionLink("Details", "Details", new { id = album.AlbumID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = album.AlbumID })
+            </td>
+            <td>
+                @foreach (var item in album.AlbumComment)
+                {
+                    <h4>@item.CommentOnAlbum</h4>
+                }
+            </td>
+        </tr>
+    }
+</table>

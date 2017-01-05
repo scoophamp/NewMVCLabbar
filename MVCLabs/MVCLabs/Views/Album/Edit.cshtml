@@ -1,0 +1,16 @@
+﻿@model MVCLabs.Models.Album
+@{
+    ViewBag.Title = "Edit";
+}
+<h2>Edit</h2>
+<h2>AddComment</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    //<img src="/Image/@Model.PhotoName" />
+    <div class="form-actions no-color">
+        <input type="text" name="albumComment" id="albumComment" />
+        <input type="submit" value="Add" class="btn btn-default" /> |
+        @Html.ActionLink("Back to Album", "Index")
+    </div>
+}

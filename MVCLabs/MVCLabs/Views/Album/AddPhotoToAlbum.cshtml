@@ -1,0 +1,24 @@
+﻿@model MVCLabs.Models.ViewAlbumPhoto
+@{
+    ViewBag.Title = "AddPhotoToAlbum";
+}
+<h2>AddPhotoToAlbum</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    foreach (var photo in Model.Photos)
+    {
+        <div>
+            <img src="/Image/@photo.PhotoName" />
+            <input type="checkbox" name="photos[]" value="@photo.PhotoID" />
+        </div>
+    }
+    <select name="albumID">
+        @foreach (var album in Model.Albums)
+        {
+            <option value="@album.AlbumID">@album.AlbumName</option>
+        }
+    </select>
+    <input type="submit" value="Add To Album" class="btn btn-default" />
+}
+
