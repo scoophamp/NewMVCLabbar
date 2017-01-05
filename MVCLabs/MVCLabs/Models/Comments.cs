@@ -7,5 +7,7 @@ namespace MVCLabs.Models
 {
     public class Comments
     {
+        public string CommentOnPicture { get; set; }
+        public string CommentOnAlbum { get; set; }
     }
 }
