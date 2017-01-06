@@ -15,8 +15,8 @@ namespace MVCAjax.Controllers
         {
             if (!albums.Any())
             {
-                albums.Add(new Album { AlbumID = Guid.NewGuid(), AlbumName = "WaterSports", Photos = new List<Photo>(), AlbumComment = new List<Comments> { new Comments { CommentOnAlbum = "Photos with different watersports" } } });
-                albums.Add(new Album { AlbumID = Guid.NewGuid(), AlbumName = "Boards", Photos = new List<Photo>(), AlbumComment = new List<Comments> { new Comments { CommentOnAlbum = "Photos on different kind of boards" } } });
+                albums.Add(new Album { AlbumID = Guid.NewGuid(), AlbumName = "CheeseCollection", Photos = new List<Photo>(), AlbumComment = new List<Comments> { new Comments { CommentOnAlbum = "Bahh" } } });
+                albums.Add(new Album { AlbumID = Guid.NewGuid(), AlbumName = "Yupcheesy", Photos = new List<Photo>(), AlbumComment = new List<Comments> { new Comments { CommentOnAlbum = "Photos of cheese" } } });
             }
 
         }
