@@ -1,7 +1,18 @@
-﻿
+﻿@model MVCAjax.Models.Album
+
 @{
-    ViewBag.Title = "AddComment";
+    var ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "content"
+    };
+}
+@using (Ajax.BeginForm("AddComment", ajaxOptions))
+{
+    <input type="text" name="albumComment" />
+    <input type="submit" value="Add Comment" />
 }
 
-<h2>AddComment</h2>
+
 

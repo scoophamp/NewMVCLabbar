@@ -1,7 +1,55 @@
-﻿
+﻿@model List<MVCAjax.Models.Photo>
+
 @{
     ViewBag.Title = "Index";
+
 }
 
+@{
+    var ajaxListAllPhoto = new AjaxOptions
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "content"
+    };
+    var ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "content"
+    };
+}
+@Html.ActionLink("Upload New Picture", "UploadPicture")
 <h2>Index</h2>
-
+@foreach (var photo in Model)
+{
+    <div>
+        <img src="/Image/@photo.PhotoName" />
+    </div>
+    <div id="loadcomments">
+        <h4>Comment:</h4>
+        @foreach (var comment in photo.PhotoComment)
+        {
+            <div>
+                @comment.CommentOnPicture
+            </div>
+        }
+    </div>
+    @Ajax.ActionLink($"Add Comment {photo.PhotoName}", "AddComment", new { id = photo.PhotoID }, ajaxListAllPhoto)
+    @Ajax.ActionLink($"Show Image {photo.PhotoName}", "ShowImage", new { id = photo.PhotoID }, ajaxListAllPhoto)
+    @Ajax.ActionLink($"Delete", "DeletePicture", new { id = photo.PhotoID }, ajaxOption)
+}
+@section scripts{
+    <script src="~/scripts/loadComment.js"></script>
+}
+@section latest{
+    <h3>Latest uploaded Picture</h3>
+    @foreach (var result in Model)
+    {
+        if (Model.IndexOf(result) == Model.Count - 1)
+        {
+            // this is the last item
+            <img src="/Image/@result.PhotoName" />
+        }
+    }
+}

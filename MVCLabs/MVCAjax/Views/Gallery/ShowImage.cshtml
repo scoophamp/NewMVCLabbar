@@ -1,7 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "ShowImage";
-}
+﻿@model MVCAjax.Models.Photo
 
-<h2>ShowImage</h2>
+<img src="/Image/@Model.PhotoName" />
 
+<p>@Model.PhotoName</p>

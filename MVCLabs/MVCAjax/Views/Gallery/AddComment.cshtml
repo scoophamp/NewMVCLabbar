@@ -1,7 +1,19 @@
-﻿
+﻿@model MVCAjax.Models.Photo
 @{
-    ViewBag.Title = "AddComment";
+    var ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Addcomment"
+    };
+}
+@using (Ajax.BeginForm("AddComment", ajaxOptions))
+{
+    <img src="/Image/@Model.PhotoName" />
+    <input type="text" name="photoComment" />
+    <input type="submit" value="Add Comment" />
 }
 
-<h2>AddComment</h2>
-
+<div id="Addcomment">
+    @{Html.RenderAction("IndexPartial");}
+</div>
